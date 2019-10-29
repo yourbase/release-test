@@ -1,2 +1,2 @@
 # release-test
-Tries to exercise all build packs
+Tries to exercise all of YB CLI's build packs
