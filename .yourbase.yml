@@ -1,0 +1,61 @@
+dependencies:
+  runtime:
+    - python:3.7
+    - go:1.12.10
+    - ruby:2.5.0
+    - java:8.212.04
+    - node:10.15.1
+  build:
+    - python:3.7
+    - go:1.12.10
+    - ruby:2.5.0
+    - java:8.212.04
+    - node:10.15.1
+
+build_targets:
+  - name: default
+    commands:
+      - echo "Experimenting with an experimental repository"
+      - node --version
+      - java -version
+      - ruby --version
+      - python3 --version
+      - go version
+
+  - name: no_container
+    host_only: true
+    commands:
+      - echo "Experimenting with an experimental repository"
+      - node --version
+      - java -version
+      - ruby --version
+      - python3 --version
+      - go version
+      
+  - name: containerdeps
+    container:
+      image: yourbase/yb_ubuntu:16.04
+    dependencies:
+      containers:
+        redis:
+          image: mysql:latest
+          port_check:
+            port: 5555
+            timeout: 30
+    environment:
+      - MYSQL_HOST={{ .Containers.IP "mysql" }}
+    commands:
+      - node --version
+      
+ci:
+  builds:
+  - name: containerdeps
+    build_target: containerdeps
+
+  - name: do_it
+    build_target: default
+    when: branch IS NOT 'master'
+
+  - name: hostbuild
+    build_target: no_container
+    when: branch IS 'master'
