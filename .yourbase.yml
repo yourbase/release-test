@@ -37,13 +37,13 @@ build_targets:
       image: yourbase/yb_ubuntu:16.04
     dependencies:
       containers:
-        mysql:
-          image: mysql:latest
+        redis:
+          image: redis:latest
           port_check:
-            port: 3306
-            timeout: 60
+            port: 6379
+            timeout: 30
     environment:
-      - MYSQL_HOST={{ .Containers.IP "mysql" }}
+      - REDIS_HOST={{ .Containers.IP "redis" }}
     commands:
       - env
       - cat env.sh
