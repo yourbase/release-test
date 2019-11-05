@@ -40,11 +40,14 @@ build_targets:
         mysql:
           image: mysql:latest
           port_check:
-            port: 5555
-            timeout: 30
+            port: 3306
+            timeout: 60
     environment:
       - MYSQL_HOST={{ .Containers.IP "mysql" }}
     commands:
+      - env
+      - cat env.sh
+      - bash env.sh
       - node --version
 
   - name: fail
