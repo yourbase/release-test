@@ -3,13 +3,13 @@ dependencies:
     - python:3.7
     - go:1.12.10
     - ruby:2.5.0
-    - java:8.212.04
+    - java:8.232.09
     - node:10.15.1
   build:
     - python:3.7
     - go:1.12.10
     - ruby:2.5.0
-    - java:8.212.04
+    - java:8.232.09
     - node:10.15.1
 
 build_targets:
